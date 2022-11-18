@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// this is a draft of a probably simpler approach. It does not use low-level rendering with Canvas
-
 class PicturePanZoomComponent extends StatefulWidget {
   const PicturePanZoomComponent({Key? key}) : super(key: key);
 
@@ -10,6 +8,8 @@ class PicturePanZoomComponent extends StatefulWidget {
       _PicturePanZoomComponentState();
 }
 
+//This component helps with the state of the panning and zooming of the screen
+//it handles mainly the buttons for zoom in/zoom out
 class _PicturePanZoomComponentState extends State<PicturePanZoomComponent> {
   double top = 0;
   double left = 0;
@@ -59,6 +59,9 @@ class _PicturePanZoomComponentState extends State<PicturePanZoomComponent> {
     );
   }
 
+  //This method handles the update done to the screen while panning around
+  //with a finger, where it takes the top and left positions and modifies them
+  //by the delta coordinates of the "details" variable at the x and y coordinate
   void _handlePanUpdate(DragUpdateDetails details) {
     setState(() {
       top = top + details.delta.dy;
@@ -66,12 +69,15 @@ class _PicturePanZoomComponentState extends State<PicturePanZoomComponent> {
     });
   }
 
+  //This method handles the ratio at which the button for zooming, zooms the
+  //screen
   void _handleZoomIn() {
     setState(() {
       ratio *= 1.5;
     });
   }
 
+  //This method handles the ratio at which the zoom out button, zooms out
   void _handleZoomOut() {
     setState(() {
       ratio /= 1.5;

@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 class MapObject {
   final Widget child;
 
-  ///relative offset from the center of the map for this map object. From -1 to 1 in each dimension.
+  //this offset is used to determine the position of a map object
   final Offset offset;
 
-  ///size of this object for the zoomLevel == 1
+  //this determines the desired size of our map object
   final Size size;
 
   MapObject({
@@ -19,6 +19,7 @@ class MapObject {
   });
 }
 
+//This class handles everything that happens to the image on the screen
 class _ImageViewportState extends State<ImageViewport> {
   late double _zoomLevel;
   late ImageProvider _imageProvider;
@@ -38,12 +39,14 @@ class _ImageViewportState extends State<ImageViewport> {
     return value < 0 ? value * (-1) : value;
   }
 
+  //first render of the image at the appropriate size
   void _updateActualImageDimensions() {
     _actualImageSize = Size(
         (_image.width / window.devicePixelRatio) * _zoomLevel,
         (_image.height / ui.window.devicePixelRatio) * _zoomLevel);
   }
 
+  //Initializing all the variables
   @override
   void initState() {
     super.initState();
@@ -54,6 +57,7 @@ class _ImageViewportState extends State<ImageViewport> {
     _objects = widget.objects;
   }
 
+  //Gives an image provider to the screen
   void _resolveImageProvider() {
     ImageStream stream =
         _imageProvider.resolve(createLocalImageConfiguration(context));
@@ -67,12 +71,14 @@ class _ImageViewportState extends State<ImageViewport> {
     ));
   }
 
+  //Checking for dependencies
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _resolveImageProvider();
   }
 
+  //Checking if the image dimensions have changed and alter it accordingly
   @override
   void didUpdateWidget(ImageViewport oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -90,8 +96,8 @@ class _ImageViewportState extends State<ImageViewport> {
     _updateActualImageDimensions();
   }
 
-  ///This is used to convert map objects relative global offsets from the map center
-  ///to the local viewport offset from the top left viewport corner.
+  //This method converts map objects from the map centre to the local viewport
+  //offset from the top left viewport corner
   Offset _globaltoLocalOffset(Offset value) {
     double hDelta = (_actualImageSize.width / 2) * value.dx;
     double vDelta = (_actualImageSize.height / 2) * value.dy;
@@ -100,7 +106,8 @@ class _ImageViewportState extends State<ImageViewport> {
     return Offset(dx, dy);
   }
 
-  ///This is used to convert global coordinates of long press event on the map to relative global offsets from the map center
+  //In this method we take an offset value and we use it for a long-press event
+  //to convert it's local coordinates to relative offsets from the map centre
   Offset _localToGlobalOffset(Offset value) {
     double dx = value.dx - _viewportSize.width / 2;
     double dy = value.dy - _viewportSize.height / 2;
@@ -114,6 +121,7 @@ class _ImageViewportState extends State<ImageViewport> {
 
   @override
   Widget build(BuildContext context) {
+    //This method handles panning around the screen
     void handleDrag(DragUpdateDetails updateDetails) {
       Offset newOffset = _centerOffset.translate(
           -updateDetails.delta.dx, -updateDetails.delta.dy);
@@ -125,14 +133,16 @@ class _ImageViewportState extends State<ImageViewport> {
       }
     }
 
+    //This method adds a map object to the image
     void addMapObject(MapObject object) => setState(() {
           _objects.add(object);
         });
-
+    //This  method removes a map object from the image
     void removeMapObject(MapObject object) => setState(() {
           _objects.remove(object);
         });
-
+    //This widget allows us to remove a placed map object by the user
+    //Only an experimental feature that might represent a pin system in the future
     List<Widget> buildObjects() {
       return _objects
           .map(
@@ -180,6 +190,7 @@ class _ImageViewportState extends State<ImageViewport> {
           .toList();
     }
 
+    //build the screen layout for the image
     return _resolved
         ? LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
@@ -199,7 +210,7 @@ class _ImageViewportState extends State<ImageViewport> {
                     _maxVerticalDelta * _normalized.dy);
                 _denormalize = false;
               }
-
+              //This handles the gesture of panning around the screen
               return GestureDetector(
                 onPanUpdate: reactOnPan ? handleDrag : null,
                 onHorizontalDragUpdate:
@@ -213,7 +224,7 @@ class _ImageViewportState extends State<ImageViewport> {
                   Offset newObjectOffset = _localToGlobalOffset(localPosition!);
                   MapObject newObject = MapObject(
                     child: Container(
-                      color: Colors.grey,   //mapObject color
+                      color: Colors.grey, //mapObject color
                     ),
                     offset: newObjectOffset,
                     size: const Size(10, 10),
@@ -237,6 +248,7 @@ class _ImageViewportState extends State<ImageViewport> {
   }
 }
 
+//This class handles the Image provided for our map
 class ImageViewport extends StatefulWidget {
   final double zoomLevel;
   final ImageProvider imageProvider;
@@ -253,6 +265,9 @@ class ImageViewport extends StatefulWidget {
   State<StatefulWidget> createState() => _ImageViewportState();
 }
 
+//This class handles taking our image for the map and displaying it on a canvas
+//of the phone screen, knowing to take into consideration the resolution
+//of the screen
 class MapPainter extends CustomPainter {
   final ui.Image image;
   final double zoomLevel;
@@ -295,6 +310,7 @@ class ZoomContainerState extends State<ZoomContainer> {
   late ImageProvider _imageProvider;
   late List<MapObject> _objects;
 
+  //Initializing zoom level, image provider and widget object
   @override
   void initState() {
     super.initState();
@@ -303,6 +319,8 @@ class ZoomContainerState extends State<ZoomContainer> {
     _objects = widget.objects;
   }
 
+  //Checks if the widgdet got updated and if it did, then it replaces our
+  //image provider with the new one
   @override
   void didUpdateWidget(ZoomContainer oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -350,6 +368,8 @@ class ZoomContainerState extends State<ZoomContainer> {
   }
 }
 
+//The ZoomContainer provides the class with variables such as:
+//zoomLevel, imageProvider, list of object of type <MapObject
 class ZoomContainer extends StatefulWidget {
   final double zoomLevel;
   final ImageProvider imageProvider;
@@ -366,6 +386,9 @@ class ZoomContainer extends StatefulWidget {
   State<StatefulWidget> createState() => ZoomContainerState();
 }
 
+//This class initializes the map that we provide as a .png image
+//it as well, sets a MapObject of color red, at a preset offset and of our desired
+//size to be placed on the image
 class CampusMap extends StatelessWidget {
   const CampusMap({Key? key}) : super(key: key);
 
@@ -377,7 +400,7 @@ class CampusMap extends StatelessWidget {
       ),
       body: Center(
         child: ZoomContainer(
-          zoomLevel:0.2,
+          zoomLevel: 0.2,
           imageProvider: Image.asset("assets/map.png").image,
           objects: [
             MapObject(
