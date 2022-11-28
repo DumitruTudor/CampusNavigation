@@ -12,18 +12,25 @@ class LocationApp extends StatefulWidget {
 
 class _LocationAppState extends State<LocationApp> {
   // creating variable for saving location coordinates
-  var locationMessage = "";
-
+  //var locationMessage = "";
+  Position? pos;
+  double? lat, long;
+  Position? _currentPosition;
   // function that gets the current location using Geolocator API
   // set the location accuracy as accurate as possible for navigation purpose
   // print out the latitude and longitude with restricted (6) decimal numbers
-  void getCurrentLocation() async {
-    Position? position;
+  _getCurrentLocation() async {
     final LocationSettings locationSettings = LocationSettings(
       accuracy: LocationAccuracy.bestForNavigation,
-      distanceFilter: 2,
+      distanceFilter: 1,
     );
-    StreamSubscription<Position> positionStream =
+    Geolocator.getPositionStream(locationSettings: locationSettings)
+        .listen((Position position) {
+      setState(() {
+        _currentPosition = position;
+      });
+    });
+    /*    StreamSubscription<Position> positionStream =
         Geolocator.getPositionStream(locationSettings: locationSettings)
             .listen((position) {
 /*       (position == null
@@ -31,17 +38,15 @@ class _LocationAppState extends State<LocationApp> {
           : '${position.latitude.toStringAsFixed(6)}, ${position.longitude.toStringAsFixed(6)}'); */
       setState(() {
         locationMessage =
-            "Latitude: ${position.latitude.toStringAsFixed(6)}\nLongitude:${position.longitude.toStringAsFixed(6)}";
+            "Latitude: ${position.latitude.toStringAsFixed(7)}\nLongitude:${position.longitude.toStringAsFixed(7)}";
       });
-    });
-    //var lat = double.parse(position.latitude.toStringAsFixed(6));
-    //var lon = double.parse(position.longitude.toStringAsFixed(6));
+    }); */
     /* setState(() {
       locationMessage = "Your Position:\nLatitude: $lat,\nLongitude: $lon";
     }); */
   }
 
-  Future<Position> _determinePosition() async {
+  void _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
     //Test if the location services are enabled
@@ -69,8 +74,13 @@ class _LocationAppState extends State<LocationApp> {
       return Future.error(
           "Location permissions are permanently denied, we cannot request permissions.");
     }
-    return await Geolocator.getCurrentPosition(
+    Position currentPos = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.bestForNavigation);
+    setState(() {
+      lat = currentPos.latitude;
+      long = currentPos.longitude;
+      pos = currentPos;
+    });
   }
 
   // build the context for displaying the current coordinates
@@ -86,6 +96,10 @@ class _LocationAppState extends State<LocationApp> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Text(
+                "LATCurrent: ${pos?.latitude.toStringAsFixed(7)},\nLNGCurrent: ${pos?.longitude.toStringAsFixed(7)}"),
+            Text(
+                "LAT: ${_currentPosition?.latitude.toStringAsFixed(7)}, \nLNG: ${_currentPosition?.longitude.toStringAsFixed(7)}"),
             const Icon(Icons.location_on, size: 45, color: Colors.blue),
             const SizedBox(
               height: 10.0,
@@ -97,16 +111,21 @@ class _LocationAppState extends State<LocationApp> {
             const SizedBox(
               height: 20,
             ),
-            Text(
+/*             Text(
               "$locationMessage\n",
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-            ),
+            ), */
+            ElevatedButton(
+                onPressed: () {
+                  _determinePosition();
+                },
+                child: const Text("Get Current Location")),
             ElevatedButton(
               onPressed: () {
-                getCurrentLocation();
+                _getCurrentLocation();
               },
-              child: const Text("Get Current Location"),
+              child: const Text("Get Live Location"),
             )
           ],
         ),
