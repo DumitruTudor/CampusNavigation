@@ -10,7 +10,6 @@ void main() {
 
 class LUCampusNavigation extends StatelessWidget {
   const LUCampusNavigation({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

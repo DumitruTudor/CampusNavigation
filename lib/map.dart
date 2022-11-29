@@ -400,7 +400,7 @@ class CampusMap extends StatelessWidget {
       ),
       body: Center(
         child: ZoomContainer(
-          zoomLevel: 0.2,
+          zoomLevel: 1,
           imageProvider: Image.asset("assets/map.png").image,
           objects: [
             MapObject(
@@ -408,7 +408,7 @@ class CampusMap extends StatelessWidget {
                 color: Colors.red,
               ),
               offset: const Offset(-0.21, 0.31),
-              size: const Size(60, 60),
+              size: const Size(15, 15),
             ),
           ],
         ),
