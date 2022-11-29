@@ -3,6 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
+
+void main(){
+  runApp(LocationApp());
+}
+
 class LocationApp extends StatefulWidget {
   const LocationApp({super.key});
 
@@ -93,7 +98,8 @@ class _LocationAppState extends State<LocationApp> {
   // returning a visual scaffold for Material Design widgets
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+        home:Scaffold(
       appBar: AppBar(
         title: const Text("LocationApp"),
       ),
@@ -141,6 +147,7 @@ class _LocationAppState extends State<LocationApp> {
           ],
         ),
       ),
+     ),
     );
   }
 }
