@@ -134,11 +134,13 @@ class _LocationAppState extends State<LocationApp> {
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
             ), */
             ElevatedButton(
+              key: Key('getCurrent'),
                 onPressed: () {
                   _determinePosition();
                 },
                 child: const Text("Get Current Location")),
             ElevatedButton(
+              key: Key('getLive'),
               onPressed: () {
                 _getCurrentLocation();
               },

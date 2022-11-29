@@ -12,22 +12,18 @@ import 'package:flutter/material.dart';
 
 void main() {
   testWidgets('Campus Navigation first page widget test', (WidgetTester tester) async {
-    //find all the
-    //final mapButton = find.byKey(ValueKey('navigateToMap'));
-    //final locationButton = find.byKey(ValueKey('navigateToLocation'));
-
     // setup
     await tester.pumpWidget(const LocationApp());
     await tester.pumpAndSettle(const Duration(seconds: 3));
-
     //do
-    //final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
-    final titleFinder = find.text("LocationApp");
+     final titleFinder = find.text("LocationApp");
     final textFinder = find.text("Get user Location");
+    final currentButton = find.byKey(const ValueKey('getCurrent'));
+    final liveButton = find.byKey(const ValueKey('getLive'));
     //test
-    //expect(button.child,const Text('Map'));
     expect(titleFinder, findsOneWidget);
     expect(textFinder,findsOneWidget);
-    //expect(find.byWidget(const CampusMap()),findsOneWidget);
+    expect(currentButton, findsOneWidget);
+    expect(liveButton, findsOneWidget);
   });
 }
