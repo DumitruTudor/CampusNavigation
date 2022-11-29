@@ -14,7 +14,9 @@ class _LocationAppState extends State<LocationApp> {
   // creating variable for saving location coordinates
   //var locationMessage = "";
   Position? pos;
-  double? lat, long;
+  double lat = 51.3410600;
+  double? long;
+  bool hasArrived = false;
   Position? _currentPosition;
   // function that gets the current location using Geolocator API
   // set the location accuracy as accurate as possible for navigation purpose
@@ -22,12 +24,16 @@ class _LocationAppState extends State<LocationApp> {
   _getCurrentLocation() async {
     final LocationSettings locationSettings = LocationSettings(
       accuracy: LocationAccuracy.bestForNavigation,
-      distanceFilter: 1,
+      distanceFilter: 0,
     );
     Geolocator.getPositionStream(locationSettings: locationSettings)
         .listen((Position position) {
       setState(() {
         _currentPosition = position;
+        if (_currentPosition!.latitude <= lat + 0.0000100 &&
+            _currentPosition!.latitude >= lat - 0.0000100) {
+          hasArrived = true;
+        }
       });
     });
     /*    StreamSubscription<Position> positionStream =
@@ -96,6 +102,11 @@ class _LocationAppState extends State<LocationApp> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            if (hasArrived)
+              const AlertDialog(
+                title: Text("You have arrived"),
+                content: Text("You have arrived"),
+              ),
             Text(
                 "LATCurrent: ${pos?.latitude.toStringAsFixed(7)},\nLNGCurrent: ${pos?.longitude.toStringAsFixed(7)}"),
             Text(
