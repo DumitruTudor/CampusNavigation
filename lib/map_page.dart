@@ -3,7 +3,7 @@ import 'MapClasses/MapObject.dart';
 import 'MapClasses/ZoomContainer.dart';
 
 void main() {
-  runApp(CampusMap());
+  runApp(const CampusMap());
 }
 
 //This class initializes the map that we provide as a .png image
@@ -20,6 +20,7 @@ class CampusMap extends StatelessWidget {
       ),
       body: Center(
         child: ZoomContainer(
+          key: const Key("zoomContainer"),
           zoomLevel: 1,
           imageProvider: Image.asset("assets/map.png").image,
           objects: [
