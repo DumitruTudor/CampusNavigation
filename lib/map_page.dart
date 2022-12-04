@@ -26,6 +26,7 @@ class CampusMap extends StatelessWidget {
       ),
       body: Center(
         child: ZoomContainer(
+          key: const Key("zoomContainer"),
           zoomLevel: 1,
           imageProvider: Image.asset("assets/map.png").image,
           objects: [
@@ -40,7 +41,7 @@ class CampusMap extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      /*floatingActionButton: FloatingActionButton(
         onPressed: () {
           _locationPermission();
           _getLiveLocation();
@@ -49,7 +50,7 @@ class CampusMap extends StatelessWidget {
         },
         backgroundColor: Colors.blue,
         child: const Text('Go'),
-      ),
+      ),*/
     );
   }
 }

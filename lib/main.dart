@@ -17,7 +17,7 @@ class LUCampusNavigation extends StatelessWidget {
       initialRoute: 'firstpage',
       routes: {
         'firstpage': (context) => HomePage(),
-        '/map': (context) => Campus(),
+        '/map': (context) => CampusMap(),
         '/location': (context) => LocationApp(),
       },
     );
