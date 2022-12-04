@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/map_page.dart';
 import 'package:geolocator/geolocator.dart';
 
 
@@ -32,7 +33,10 @@ class _LocationAppState extends State<LocationApp> {
       setState(() {
         _currentPosition = position;
         if (_currentPosition!.latitude <= lat + 0.0000100 &&
-            _currentPosition!.latitude >= lat - 0.0000100) {
+            _currentPosition!.latitude >= lat - 0.0000100
+            /*&& _currentPosition!.longitude <= long + 0.0000100 &&
+            _currentPosition!.longitude >= long - 0.0000100*/
+        ) {
           hasArrived = true;
         }
       });
@@ -132,6 +136,8 @@ class _LocationAppState extends State<LocationApp> {
               key: Key('getCurrent'),
                 onPressed: () {
                   _determinePosition();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => CampusMap()));
                 },
                 child: const Text("Get Current Location")),
             const SizedBox(height: 20,),

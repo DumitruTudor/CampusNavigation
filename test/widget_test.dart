@@ -32,7 +32,7 @@ void main() {
   testWidgets('Map page widget test', (WidgetTester tester) async {
     // setup
     Widget zoomContainer = ZoomContainer(imageProvider:Image.asset("assets/map.png").image );
-    await tester.pumpWidget(const MaterialApp(
+    await tester.pumpWidget( MaterialApp(
         home:CampusMap()
     ) );
     await tester.pumpAndSettle(const Duration(seconds: 3));
@@ -53,7 +53,7 @@ void main() {
     expect(zoomOutIcon, findsOneWidget);
     expect(zoomLevelFinder, 1);
     expect(imageFinder, Image.asset("assets/map.png").image);
-    expect(mapObjectFinder.offset,const Offset(-0.21, 0.31) );
+    expect(mapObjectFinder.offset,const Offset(0, 0) );
     expect(mapObjectFinder.size,const Size(15, 15) );
   });
 }

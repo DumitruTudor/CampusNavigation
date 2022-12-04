@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
                   key: navigateToMapButtonKey,
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const CampusMap()));
+                        MaterialPageRoute(builder: (_) =>  CampusMap()));
                   },
                   child: const Text(
                     "Map",
