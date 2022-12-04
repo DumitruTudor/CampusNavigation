@@ -9,20 +9,19 @@ class HomePage extends StatelessWidget {
   static const navigateToMapButtonKey = Key('navigateToMap');
   static const navigateToLocationButtonKey = Key('navigateToLocation');
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
+      body: SafeArea(
         child: Align(
           alignment: Alignment.center,
-              child: Column(
-              children: <Widget>[
-                Text("Welcome"),
-                //const SizedBox(height: 360),
-                ElevatedButton(
-                  key: navigateToMapButtonKey,
-                    /*style:
+          child: Column(
+            children: <Widget>[
+              Text("Welcome"),
+              //const SizedBox(height: 360),
+              ElevatedButton(
+                key: navigateToMapButtonKey,
+                /*style:
                     ButtonStyle(
                       textStyle: MaterialStateProperty.all<TextStyle>(
                         const TextStyle(
@@ -39,29 +38,29 @@ class HomePage extends StatelessWidget {
                           const Size(350,60)
                       ),
                     ),*/
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const CampusMap()));
-                  },
-                  child: const Text(
-                    "Map",
-                  ),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const Campus()));
+                },
+                child: const Text(
+                  "Map",
                 ),
-                //const SizedBox(height: 20),
-                ElevatedButton(
-                  key: navigateToLocationButtonKey,
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const LocationApp()));
-                  },
-                  child: const Text(
-                    "Location",
-                  ),
+              ),
+              //const SizedBox(height: 20),
+              ElevatedButton(
+                key: navigateToLocationButtonKey,
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const LocationApp()));
+                },
+                child: const Text(
+                  "Location",
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
+      ),
     );
   }
 }

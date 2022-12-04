@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
-
-void main(){
+void main() {
   runApp(LocationApp());
 }
 
@@ -57,7 +55,7 @@ class _LocationAppState extends State<LocationApp> {
     }); */
   }
 
-  void _determinePosition() async {
+  void _locationPermission() async {
     bool serviceEnabled;
     LocationPermission permission;
     //Test if the location services are enabled
@@ -99,57 +97,57 @@ class _LocationAppState extends State<LocationApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home:Scaffold(
-      appBar: AppBar(
-        title: const Text("LocationApp"),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            if (hasArrived)
-              const AlertDialog(
-                title: Text("You have arrived"),
-                content: Text("You have arrived"),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text("LocationApp"),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              if (hasArrived)
+                const AlertDialog(
+                  title: Text("You have arrived"),
+                  content: Text("You have arrived"),
+                ),
+              Text(
+                  "LATCurrent: ${pos?.latitude.toStringAsFixed(7)},\nLNGCurrent: ${pos?.longitude.toStringAsFixed(7)}"),
+              Text(
+                  "LAT: ${_currentPosition?.latitude.toStringAsFixed(7)}, \nLNG: ${_currentPosition?.longitude.toStringAsFixed(7)}"),
+              const Icon(Icons.location_on, size: 45, color: Colors.blue),
+              const SizedBox(
+                height: 10.0,
               ),
-            Text(
-                "LATCurrent: ${pos?.latitude.toStringAsFixed(7)},\nLNGCurrent: ${pos?.longitude.toStringAsFixed(7)}"),
-            Text(
-                "LAT: ${_currentPosition?.latitude.toStringAsFixed(7)}, \nLNG: ${_currentPosition?.longitude.toStringAsFixed(7)}"),
-            const Icon(Icons.location_on, size: 45, color: Colors.blue),
-            const SizedBox(
-              height: 10.0,
-            ),
-            const Text(
-              "Get user Location",
-              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
+              const Text(
+                "Get user Location",
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
 /*             Text(
               "$locationMessage\n",
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
             ), */
-            ElevatedButton(
-              key: Key('getCurrent'),
+              ElevatedButton(
+                  key: Key('getCurrent'),
+                  onPressed: () {
+                    _locationPermission();
+                  },
+                  child: const Text("Get Current Location")),
+              ElevatedButton(
+                key: Key('getLive'),
                 onPressed: () {
-                  _determinePosition();
+                  _getCurrentLocation();
                 },
-                child: const Text("Get Current Location")),
-            ElevatedButton(
-              key: Key('getLive'),
-              onPressed: () {
-                _getCurrentLocation();
-              },
-              child: const Text("Get Live Location"),
-            )
-          ],
+                child: const Text("Get Live Location"),
+              )
+            ],
+          ),
         ),
       ),
-     ),
     );
   }
 }
