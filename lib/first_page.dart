@@ -9,41 +9,40 @@ class HomePage extends StatelessWidget {
   static const navigateToMapButtonKey = Key('navigateToMap');
   static const navigateToLocationButtonKey = Key('navigateToLocation');
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
+      body: SafeArea(
         child: Align(
           alignment: Alignment.center,
-              child: Column(
-              children: <Widget>[
-                const SizedBox(height: 290),
-                ElevatedButton(
-                  key: navigateToMapButtonKey,
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) =>  CampusMap()));
-                  },
-                  child: const Text(
-                    "Map",
-                  ),
+          child: Column(
+            children: <Widget>[
+              const SizedBox(height: 290),
+              ElevatedButton(
+                key: navigateToMapButtonKey,
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => Campus()));
+                },
+                child: const Text(
+                  "Map",
                 ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  key: navigateToLocationButtonKey,
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const LocationApp()));
-                  },
-                  child: const Text(
-                    "Location",
-                  ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                key: navigateToLocationButtonKey,
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const LocationApp()));
+                },
+                child: const Text(
+                  "Location",
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
+      ),
     );
   }
 }

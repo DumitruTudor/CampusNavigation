@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/map_page.dart';
 import 'package:geolocator/geolocator.dart';
 
-
 class LocationApp extends StatefulWidget {
   const LocationApp({super.key});
 
@@ -33,10 +32,10 @@ class _LocationAppState extends State<LocationApp> {
       setState(() {
         _currentPosition = position;
         if (_currentPosition!.latitude <= lat + 0.0000100 &&
-            _currentPosition!.latitude >= lat - 0.0000100
+                _currentPosition!.latitude >= lat - 0.0000100
             /*&& _currentPosition!.longitude <= long + 0.0000100 &&
             _currentPosition!.longitude >= long - 0.0000100*/
-        ) {
+            ) {
           hasArrived = true;
         }
       });
@@ -113,10 +112,12 @@ class _LocationAppState extends State<LocationApp> {
                 content: Text("You have arrived"),
               ),
             Text(
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                 "LATCurrent: ${pos?.latitude.toStringAsFixed(7)},\nLNGCurrent: ${pos?.longitude.toStringAsFixed(7)}"),
             Text(
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                 "LAT: ${_currentPosition?.latitude.toStringAsFixed(7)}, \nLNG: ${_currentPosition?.longitude.toStringAsFixed(7)}"),
             const Icon(Icons.location_on, size: 60, color: Colors.blue),
             const SizedBox(
@@ -126,21 +127,25 @@ class _LocationAppState extends State<LocationApp> {
               "Get user Location",
               style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
 /*             Text(
               "$locationMessage\n",
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
             ), */
             ElevatedButton(
-              key: Key('getCurrent'),
+                key: Key('getCurrent'),
                 onPressed: () {
                   _determinePosition();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => CampusMap()));
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => Campus()));
                 },
                 child: const Text("Get Current Location")),
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             ElevatedButton(
               key: Key('getLive'),
               onPressed: () {
