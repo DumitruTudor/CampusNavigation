@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'MapClasses/MapObject.dart';
 import 'MapClasses/ZoomContainer.dart';
+import 'package:geolocator/geolocator.dart';
+import 'dart:ui';
+
 
 
 //This class initializes the map that we provide as a .png image
@@ -23,7 +26,6 @@ class CampusMap extends StatelessWidget {
       ),
       body: Center(
         child: ZoomContainer(
-          key: const Key("zoomContainer"),
           zoomLevel: 1,
           imageProvider: Image.asset("assets/map.png").image,
           objects: [
@@ -37,6 +39,16 @@ class CampusMap extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _locationPermission();
+          _getLiveLocation();
+          _updateSquareDx(_currentPosition.longitude);
+          _updateSquareDy(_currentPosition.latitude);
+        },
+        backgroundColor: Colors.blue,
+        child: const Text('Go'),
       ),
     );
   }

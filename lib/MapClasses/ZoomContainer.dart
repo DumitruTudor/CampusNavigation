@@ -9,7 +9,7 @@ class ZoomContainer extends StatefulWidget {
   final ImageProvider imageProvider;
   final List<MapObject> objects;
 
-  const ZoomContainer({
+  const ZoomContainer( {
     super.key,
     this.zoomLevel = 1,
     required this.imageProvider,
