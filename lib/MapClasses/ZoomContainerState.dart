@@ -39,8 +39,7 @@ class ZoomContainerState extends State<ZoomContainer> {
         Row(
           children: <Widget>[
             IconButton(
-              color: Colors.red,
-              icon: const Icon(Icons.zoom_in),
+              icon: const Icon(Icons.zoom_in,color: Colors.red),
               onPressed: () {
                 setState(() {
                   _zoomLevel = _zoomLevel * 2;
@@ -51,8 +50,7 @@ class ZoomContainerState extends State<ZoomContainer> {
               width: 5,
             ),
             IconButton(
-              color: Colors.red,
-              icon: const Icon(Icons.zoom_out),
+              icon: const Icon(Icons.zoom_out,color: Colors.red,),
               onPressed: () {
                 setState(() {
                   _zoomLevel = _zoomLevel / 2;

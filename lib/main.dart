@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/design.dart';
-import 'firstpage.dart';
-import 'map.dart';
-import 'locationCoordinate.dart';
+import 'package:flutter_application_1/Design/design.dart';
+import 'first_page.dart';
+import 'map_page.dart';
+import 'location_page.dart';
 
 void main() {
   runApp(LUCampusNavigation());

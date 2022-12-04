@@ -1,7 +1,6 @@
 //The ZoomContainer provides the class with variables such as:
 //zoomLevel, imageProvider, list of object of type <MapObject>
 import 'package:flutter/cupertino.dart';
-
 import 'MapObject.dart';
 import 'ZoomContainerState.dart';
 
