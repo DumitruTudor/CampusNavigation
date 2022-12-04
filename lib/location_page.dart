@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/map_page.dart';
 import 'package:geolocator/geolocator.dart';
 
+import 'MapClasses/MapObject.dart';
+import 'MapClasses/ZoomContainer.dart';
+
 
 class LocationApp extends StatefulWidget {
   const LocationApp({super.key});
@@ -15,6 +18,7 @@ class LocationApp extends StatefulWidget {
 class _LocationAppState extends State<LocationApp> {
   // creating variable for saving location coordinates
   //var locationMessage = "";
+  Offset offset = Offset(-0.35, -0.75);
   Position? pos;
   double lat = 51.3410600;
   double? long;
@@ -24,7 +28,7 @@ class _LocationAppState extends State<LocationApp> {
   // set the location accuracy as accurate as possible for navigation purpose
   // print out the latitude and longitude with restricted (6) decimal numbers
   _getCurrentLocation() async {
-    final LocationSettings locationSettings = LocationSettings(
+    const LocationSettings locationSettings = LocationSettings(
       accuracy: LocationAccuracy.bestForNavigation,
       distanceFilter: 0,
     );
@@ -32,6 +36,7 @@ class _LocationAppState extends State<LocationApp> {
         .listen((Position position) {
       setState(() {
         _currentPosition = position;
+        offset=Offset((_currentPosition?.latitude)!-51,(_currentPosition?.longitude)!-12);
         if (_currentPosition!.latitude <= lat + 0.0000100 &&
             _currentPosition!.latitude >= lat - 0.0000100
             /*&& _currentPosition!.longitude <= long + 0.0000100 &&
@@ -39,23 +44,9 @@ class _LocationAppState extends State<LocationApp> {
         ) {
           hasArrived = true;
         }
+        print("Lat: ${_currentPosition?.latitude},\nLong: ${_currentPosition?.longitude}");
       });
-    });
-    /*    StreamSubscription<Position> positionStream =
-        Geolocator.getPositionStream(locationSettings: locationSettings)
-            .listen((position) {
-/*       (position == null
-          ? 'Unknown'
-          : '${position.latitude.toStringAsFixed(6)}, ${position.longitude.toStringAsFixed(6)}'); */
-      setState(() {
-        locationMessage =
-            "Latitude: ${position.latitude.toStringAsFixed(7)}\nLongitude:${position.longitude.toStringAsFixed(7)}";
-      });
-    }); */
-    /* setState(() {
-      locationMessage = "Your Position:\nLatitude: $lat,\nLongitude: $lon";
-    }); */
-  }
+    });}
 
   void _determinePosition() async {
     bool serviceEnabled;
@@ -96,7 +87,7 @@ class _LocationAppState extends State<LocationApp> {
 
   // build the context for displaying the current coordinates
   // returning a visual scaffold for Material Design widgets
-  @override
+/*  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -127,11 +118,11 @@ class _LocationAppState extends State<LocationApp> {
               style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20,),
-/*             Text(
+*//*             Text(
               "$locationMessage\n",
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-            ), */
+            ), *//*
             ElevatedButton(
               key: Key('getCurrent'),
                 onPressed: () {
@@ -151,6 +142,43 @@ class _LocationAppState extends State<LocationApp> {
           ],
         ),
       ),
+    );
+  }*/
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Campus navigator map"),
+      ),
+      body: Center(
+        child: ZoomContainer(
+          key: const Key("zoomContainer"),
+          zoomLevel: 1,
+          imageProvider: Image
+              .asset("assets/map.png")
+              .image,
+          objects: [
+            MapObject(
+              child: Container(
+                color: Colors.red,
+              ),
+              //offset: const Offset(-0.21, 0.31),
+              offset: offset,
+              size: const Size(15, 15),
+            ),
+          ],
+        ),
+      ),
+      /*floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _locationPermission();
+          _getLiveLocation();
+          _updateSquareDx(_currentPosition.longitude);
+          _updateSquareDy(_currentPosition.latitude);
+        },
+        backgroundColor: Colors.blue,
+        child: const Text('Go'),
+      ),*/
     );
   }
 }

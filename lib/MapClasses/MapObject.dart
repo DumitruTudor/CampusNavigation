@@ -4,7 +4,7 @@ class MapObject {
   final Widget child;
 
   //this offset is used to determine the position of a map object
-  final Offset offset;
+  Offset offset;
 
   //this determines the desired size of our map object
   final Size size;
