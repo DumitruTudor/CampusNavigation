@@ -16,7 +16,7 @@ class LocationApp extends StatefulWidget {
 
 class _LocationAppState extends State<LocationApp> {
   // creating variable for saving location coordinates
-  Offset offset = Offset(-0.3500, -0.7500);
+  Offset offset = Offset(0, 0);
   Position? pos;
   double lat = 51.3410600;
   double? long;

@@ -48,11 +48,12 @@ class ZoomContainerState extends State<ZoomContainer> {
         //ElevatorLat 09598 -> -0.00000 Offset dx
         //ElevatorLong 83115 -> -0.00000 Offset dy
 
-        double differenceLat = destinationLatitude - startingLatitude;
-        double differenceLong = destinationLongitude - startingLongitude;
-
+        double differenceLat = (destinationLatitude - currentLatitude)/0.0000001;
+        double differenceLong = (destinationLongitude - currentLongitude)/0.0000001;
+        double x =(-1)*differenceLat*(0.00027365);
+        double y =(-1)*differenceLong*(0.00020216);
         _objects.first.offset =
-            Offset((currentLatitude) - 51, (currentLongitude) - 12);
+            Offset(x, y);
 
         if (_currentPosition!.latitude <= destinationLatitude + 0.0000100 &&
             _currentPosition!.latitude >= destinationLatitude - 0.0000100 &&
