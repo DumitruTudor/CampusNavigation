@@ -27,17 +27,31 @@ class ZoomContainerState extends State<ZoomContainer> {
         .listen((Position position) {
       setState(() {
         _currentPosition = position;
-        _objects.first.offset=Offset((_currentPosition?.latitude)!-51,(_currentPosition?.longitude)!- 12);
+        String? currentStringLatitude =
+            _currentPosition?.latitude.toStringAsFixed(7);
+        String? currentStringLongitude =
+            _currentPosition?.longitude.toStringAsFixed(7);
+        double currentLatitude = double.parse(currentStringLatitude!);
+        double currentLongitude = double.parse(currentStringLongitude!);
+        //Lat: 10877
+        //Long: 86825
+        //ElevatorLat 09598 -> -0.00000 Offset dx
+        //ElevatorLong 83115 -> -0.00000 Offset dy
+        _objects.first.offset =
+            Offset((currentLatitude) - 51, (currentLongitude) - 12);
         if (_currentPosition!.latitude <= lat + 0.0000100 &&
-            _currentPosition!.latitude >= lat - 0.0000100
-        /*&& _currentPosition!.longitude <= long + 0.0000100 &&
+                _currentPosition!.latitude >= lat - 0.0000100
+            /*&& _currentPosition!.longitude <= long + 0.0000100 &&
             _currentPosition!.longitude >= long - 0.0000100*/
-        ) {
+            ) {
           hasArrived = true;
-        }    print("Lat: ${_currentPosition?.latitude},\nLong: ${_currentPosition?.longitude}");
+        }
+        print(
+            "Lat: ${_currentPosition?.latitude},\nLong: ${_currentPosition?.longitude}");
       });
     });
- }
+  }
+
   //Initializing zoom level, image provider and widget object
   @override
   void initState() {
@@ -69,7 +83,7 @@ class ZoomContainerState extends State<ZoomContainer> {
         Row(
           children: <Widget>[
             IconButton(
-              icon: const Icon(Icons.zoom_in,color: Colors.red),
+              icon: const Icon(Icons.zoom_in, color: Colors.red),
               onPressed: () {
                 setState(() {
                   _zoomLevel = _zoomLevel * 2;
@@ -80,7 +94,10 @@ class ZoomContainerState extends State<ZoomContainer> {
               width: 5,
             ),
             IconButton(
-              icon: const Icon(Icons.zoom_out,color: Colors.red,),
+              icon: const Icon(
+                Icons.zoom_out,
+                color: Colors.red,
+              ),
               onPressed: () {
                 setState(() {
                   _zoomLevel = _zoomLevel / 2;
@@ -89,7 +106,8 @@ class ZoomContainerState extends State<ZoomContainer> {
             ),
             MaterialButton(
               onPressed: () {
-              _getCurrentLocation(); },
+                _getCurrentLocation();
+              },
               child: const Text("Get Current Location"),
             ),
           ],

@@ -7,7 +7,6 @@ import 'package:geolocator/geolocator.dart';
 import 'MapClasses/MapObject.dart';
 import 'MapClasses/ZoomContainer.dart';
 
-
 class LocationApp extends StatefulWidget {
   const LocationApp({super.key});
 
@@ -18,7 +17,7 @@ class LocationApp extends StatefulWidget {
 class _LocationAppState extends State<LocationApp> {
   // creating variable for saving location coordinates
   //var locationMessage = "";
-  Offset offset = Offset(-0.35, -0.75);
+  Offset offset = Offset(-0.3500, -0.7500);
   Position? pos;
   double lat = 51.3410600;
   double? long;
@@ -36,17 +35,20 @@ class _LocationAppState extends State<LocationApp> {
         .listen((Position position) {
       setState(() {
         _currentPosition = position;
-        offset=Offset((_currentPosition?.latitude)!-51,(_currentPosition?.longitude)!-12);
+        offset = Offset((_currentPosition?.latitude)! - 51,
+            (_currentPosition?.longitude)! - 12);
         if (_currentPosition!.latitude <= lat + 0.0000100 &&
-            _currentPosition!.latitude >= lat - 0.0000100
+                _currentPosition!.latitude >= lat - 0.0000100
             /*&& _currentPosition!.longitude <= long + 0.0000100 &&
             _currentPosition!.longitude >= long - 0.0000100*/
-        ) {
+            ) {
           hasArrived = true;
         }
-        print("Lat: ${_currentPosition?.latitude},\nLong: ${_currentPosition?.longitude}");
+        print(
+            "Lat: ${_currentPosition?.latitude},\nLong: ${_currentPosition?.longitude}");
       });
-    });}
+    });
+  }
 
   void _determinePosition() async {
     bool serviceEnabled;
@@ -118,11 +120,11 @@ class _LocationAppState extends State<LocationApp> {
               style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20,),
-*//*             Text(
+*/ /*             Text(
               "$locationMessage\n",
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-            ), *//*
+            ), */ /*
             ElevatedButton(
               key: Key('getCurrent'),
                 onPressed: () {
@@ -154,9 +156,7 @@ class _LocationAppState extends State<LocationApp> {
         child: ZoomContainer(
           key: const Key("zoomContainer"),
           zoomLevel: 1,
-          imageProvider: Image
-              .asset("assets/map.png")
-              .image,
+          imageProvider: Image.asset("assets/map.png").image,
           objects: [
             MapObject(
               child: Container(
