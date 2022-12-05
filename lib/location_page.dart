@@ -16,7 +16,6 @@ class LocationApp extends StatefulWidget {
 
 class _LocationAppState extends State<LocationApp> {
   // creating variable for saving location coordinates
-  //var locationMessage = "";
   Offset offset = Offset(-0.3500, -0.7500);
   Position? pos;
   double lat = 51.3410600;
@@ -87,65 +86,6 @@ class _LocationAppState extends State<LocationApp> {
     });
   }
 
-  // build the context for displaying the current coordinates
-  // returning a visual scaffold for Material Design widgets
-/*  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("LocationApp"),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            if (hasArrived)
-              const AlertDialog(
-                title: Text("You have arrived"),
-                content: Text("You have arrived"),
-              ),
-            Text(
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-                "LATCurrent: ${pos?.latitude.toStringAsFixed(7)},\nLNGCurrent: ${pos?.longitude.toStringAsFixed(7)}"),
-            Text(
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-                "LAT: ${_currentPosition?.latitude.toStringAsFixed(7)}, \nLNG: ${_currentPosition?.longitude.toStringAsFixed(7)}"),
-            const Icon(Icons.location_on, size: 60, color: Colors.blue),
-            const SizedBox(
-              height: 10.0,
-            ),
-            const Text(
-              "Get user Location",
-              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20,),
-*/ /*             Text(
-              "$locationMessage\n",
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-            ), */ /*
-            ElevatedButton(
-              key: Key('getCurrent'),
-                onPressed: () {
-                  _determinePosition();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => CampusMap()));
-                },
-                child: const Text("Get Current Location")),
-            const SizedBox(height: 20,),
-            ElevatedButton(
-              key: Key('getLive'),
-              onPressed: () {
-                _getCurrentLocation();
-              },
-              child: const Text("Get Live Location"),
-            )
-          ],
-        ),
-      ),
-    );
-  }*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -169,27 +109,6 @@ class _LocationAppState extends State<LocationApp> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          ZoomContainer(
-            key: const Key("zoomContainer"),
-            zoomLevel: 1,
-            imageProvider: Image.asset("assets/map_directions.png").image,
-          );
-        },
-        backgroundColor: Colors.blue,
-        child: const Text("Go"),
-      ),
-      /*floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _locationPermission();
-          _getLiveLocation();
-          _updateSquareDx(_currentPosition.longitude);
-          _updateSquareDy(_currentPosition.latitude);
-        },
-        backgroundColor: Colors.blue,
-        child: const Text('Go'),
-      ),*/
     );
   }
 }

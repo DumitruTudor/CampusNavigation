@@ -17,9 +17,6 @@ class ZoomContainerState extends State<ZoomContainer> {
   // function that gets the current location using Geolocator API
   // set the location accuracy as accurate as possible for navigation purpose
   // print out the latitude and longitude with restricted (6) decimal numbers
-  changeImage() {
-    _imageProvider = Image.asset("assets/map_directions.png").image;
-  }
 
   _getCurrentLocation() async {
     const LocationSettings locationSettings = LocationSettings(
@@ -75,6 +72,12 @@ class ZoomContainerState extends State<ZoomContainer> {
     }
   }
 
+  void changeImage() {
+    setState(() {
+      _imageProvider = Image.asset("assets/map_directions.png").image;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -111,16 +114,10 @@ class ZoomContainerState extends State<ZoomContainer> {
             MaterialButton(
               onPressed: () {
                 _getCurrentLocation();
+                changeImage();
               },
               child: const Text("Get Current Location"),
             ),
-/*             FloatingActionButton(
-              onPressed: (() {
-                changeImage();
-              }),
-              child: const Text("Go"),
-              backgroundColor: Colors.blue,
-            ), */
           ],
         ),
       ],
