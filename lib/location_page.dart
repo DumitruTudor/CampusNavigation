@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/map_page.dart';
 import 'package:geolocator/geolocator.dart';
-
+import 'MapClasses/ZoomContainerState.dart';
 import 'MapClasses/MapObject.dart';
 import 'MapClasses/ZoomContainer.dart';
 
@@ -168,6 +168,17 @@ class _LocationAppState extends State<LocationApp> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          ZoomContainer(
+            key: const Key("zoomContainer"),
+            zoomLevel: 1,
+            imageProvider: Image.asset("assets/map_directions.png").image,
+          );
+        },
+        backgroundColor: Colors.blue,
+        child: const Text("Go"),
       ),
       /*floatingActionButton: FloatingActionButton(
         onPressed: () {

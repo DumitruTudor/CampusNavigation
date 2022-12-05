@@ -63,6 +63,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/map.png
+    - assets/map_directions.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

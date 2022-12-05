@@ -8,7 +8,6 @@ class ZoomContainerState extends State<ZoomContainer> {
   late double _zoomLevel;
   late ImageProvider _imageProvider;
   late List<MapObject> _objects;
-
   Offset offset = Offset(0, 0);
   Position? pos;
   double lat = 51.3410600;
@@ -18,11 +17,16 @@ class ZoomContainerState extends State<ZoomContainer> {
   // function that gets the current location using Geolocator API
   // set the location accuracy as accurate as possible for navigation purpose
   // print out the latitude and longitude with restricted (6) decimal numbers
+  changeImage() {
+    _imageProvider = Image.asset("assets/map_directions.png").image;
+  }
+
   _getCurrentLocation() async {
     const LocationSettings locationSettings = LocationSettings(
       accuracy: LocationAccuracy.bestForNavigation,
       distanceFilter: 0,
     );
+
     Geolocator.getPositionStream(locationSettings: locationSettings)
         .listen((Position position) {
       setState(() {
@@ -110,6 +114,13 @@ class ZoomContainerState extends State<ZoomContainer> {
               },
               child: const Text("Get Current Location"),
             ),
+/*             FloatingActionButton(
+              onPressed: (() {
+                changeImage();
+              }),
+              child: const Text("Go"),
+              backgroundColor: Colors.blue,
+            ), */
           ],
         ),
       ],
