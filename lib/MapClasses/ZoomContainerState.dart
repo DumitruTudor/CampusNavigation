@@ -10,10 +10,16 @@ class ZoomContainerState extends State<ZoomContainer> {
   late List<MapObject> _objects;
   Offset offset = Offset(0, 0);
   Position? pos;
-  double lat = 51.3410600;
+  //double lat = 51.3410600;
   double? long;
   bool hasArrived = false;
   Position? _currentPosition;
+
+  double destinationLatitude = 51.3410877;
+  double destinationLongitude = 12.3786825;
+
+  double startingLatitude = 51.3409598;
+  double startingLongitude = 12.3783115;
   // function that gets the current location using Geolocator API
   // set the location accuracy as accurate as possible for navigation purpose
   // print out the latitude and longitude with restricted (6) decimal numbers
@@ -28,23 +34,30 @@ class ZoomContainerState extends State<ZoomContainer> {
         .listen((Position position) {
       setState(() {
         _currentPosition = position;
+
         String? currentStringLatitude =
             _currentPosition?.latitude.toStringAsFixed(7);
         String? currentStringLongitude =
             _currentPosition?.longitude.toStringAsFixed(7);
+
         double currentLatitude = double.parse(currentStringLatitude!);
         double currentLongitude = double.parse(currentStringLongitude!);
+
         //Lat: 10877
         //Long: 86825
         //ElevatorLat 09598 -> -0.00000 Offset dx
         //ElevatorLong 83115 -> -0.00000 Offset dy
+
+        double differenceLat = destinationLatitude - startingLatitude;
+        double differenceLong = destinationLongitude - startingLongitude;
+
         _objects.first.offset =
             Offset((currentLatitude) - 51, (currentLongitude) - 12);
-        if (_currentPosition!.latitude <= lat + 0.0000100 &&
-                _currentPosition!.latitude >= lat - 0.0000100
-            /*&& _currentPosition!.longitude <= long + 0.0000100 &&
-            _currentPosition!.longitude >= long - 0.0000100*/
-            ) {
+
+        if (_currentPosition!.latitude <= destinationLatitude + 0.0000100 &&
+            _currentPosition!.latitude >= destinationLatitude - 0.0000100 &&
+            _currentPosition!.longitude <= destinationLongitude + 0.0000100 &&
+            _currentPosition!.longitude >= destinationLongitude - 0.0000100) {
           hasArrived = true;
         }
         print(

@@ -4,8 +4,6 @@ import 'MapClasses/ZoomContainer.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:ui';
 
-
-
 //This class initializes the map that we provide as a .png image
 //it as well, sets a MapObject of color red, at a preset offset and of our desired
 //size to be placed on the image
@@ -46,19 +44,6 @@ class _CampusMapState extends State<CampusMap> {
           ],
         ),
       ),
-      /*floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _locationPermission();
-          _getLiveLocation();
-          _updateSquareDx(_currentPosition.longitude);
-          _updateSquareDy(_currentPosition.latitude);
-        },
-        backgroundColor: Colors.blue,
-        child: const Text('Go'),
-      ),*/
     );
   }
-
-
 }
-
