@@ -15,8 +15,8 @@ class ZoomContainerState extends State<ZoomContainer> {
   bool hasArrived = false;
   Position? _currentPosition;
 
-  double destinationLatitude = 51.3410877;
-  double destinationLongitude = 12.3786825;
+  double destinationLatitude = 51.34108507;
+  double destinationLongitude = 12.3786695;
 
   double startingLatitude = 51.3409598;
   double startingLongitude = 12.3783115;
@@ -27,7 +27,7 @@ class ZoomContainerState extends State<ZoomContainer> {
   _getCurrentLocation() async {
     const LocationSettings locationSettings = LocationSettings(
       accuracy: LocationAccuracy.bestForNavigation,
-      distanceFilter: 0,
+      distanceFilter: 1,
     );
 
     Geolocator.getPositionStream(locationSettings: locationSettings)
@@ -48,23 +48,32 @@ class ZoomContainerState extends State<ZoomContainer> {
         //ElevatorLat 09598 -> -0.00000 Offset dx
         //ElevatorLong 83115 -> -0.00000 Offset dy
 
-        double differenceLat = (destinationLatitude - currentLatitude)/0.0000001;
-        double differenceLong = (destinationLongitude - currentLongitude)/0.0000001;
-        double x =(-1)*differenceLat*(0.00027365);
-        double y =(-1)*differenceLong*(0.00020216);
-        _objects.first.offset =
-            Offset(x, y);
+        double differenceLat = (currentLatitude - startingLatitude) / 0.0000001;
+        double differenceLong =
+            (currentLongitude - startingLongitude) / 0.0000001;
+        double x = (-1) * differenceLat * (0.00027365);
+        double y = (-1) * differenceLong * (0.00020216);
+        _objects.first.offset = Offset(x, y);
 
         if (_currentPosition!.latitude <= destinationLatitude + 0.0000100 &&
-            _currentPosition!.latitude >= destinationLatitude - 0.0000100 &&
-            _currentPosition!.longitude <= destinationLongitude + 0.0000100 &&
-            _currentPosition!.longitude >= destinationLongitude - 0.0000100) {
+                _currentPosition!.latitude >=
+                    destinationLatitude - 0.0000100 //&&
+            /* _currentPosition!.longitude <= destinationLongitude + 0.0000100 &&
+            _currentPosition!.longitude >= destinationLongitude - 0.0000100 */
+            ) {
           hasArrived = true;
+          dispose();
         }
         print(
-            "Lat: ${_currentPosition?.latitude},\nLong: ${_currentPosition?.longitude}");
+            "Lat: ${_currentPosition?.latitude},\nLong: ${_currentPosition?.longitude},\nOffsetDx:$x,\nOffsetDy:$y");
       });
     });
+  }
+
+  @override
+  void dispose() {
+    _getCurrentLocation().cancel();
+    super.dispose();
   }
 
   //Initializing zoom level, image provider and widget object
