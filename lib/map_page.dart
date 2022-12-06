@@ -25,23 +25,14 @@ class _CampusMapState extends State<CampusMap> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Campus navigator map"),
+        title: const Text("Campus map"),
       ),
       body: Center(
         child: ZoomContainer(
+          mapOrLocation: false,
           key: const Key("zoomContainer"),
           zoomLevel: 1,
           imageProvider: Image.asset("assets/map.png").image,
-          objects: [
-            MapObject(
-              child: Container(
-                color: Colors.red,
-              ),
-              //offset: const Offset(-0.21, 0.31),
-              offset: const Offset(0, 0),
-              size: const Size(15, 15),
-            ),
-          ],
         ),
       ),
     );

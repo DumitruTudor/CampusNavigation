@@ -31,13 +31,12 @@ void main() {
   });
   testWidgets('Map page widget test', (WidgetTester tester) async {
     // setup
-    Widget zoomContainer = ZoomContainer(imageProvider:Image.asset("assets/map.png").image );
     await tester.pumpWidget( MaterialApp(
         home:CampusMap()
     ) );
     await tester.pumpAndSettle(const Duration(seconds: 3));
     //do
-    final titleFinder = find.text("Campus navigator map");
+    final titleFinder = find.text("Campus map");
     final zoomInIcon = find.byIcon(Icons.zoom_in);
     final zoomOutIcon = find.byIcon(Icons.zoom_out);
 
