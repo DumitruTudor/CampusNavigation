@@ -51,9 +51,15 @@ class ZoomContainerState extends State<ZoomContainer> {
         //ElevatorLong 83115 -> -0.00000 Offset dy
 
         double differenceLat = (currentLatitude - startingLatitude) / 0.0000001;
-        double differenceLong = (currentLongitude - startingLongitude) / 0.0000001;
+        double differenceLong =
+            (currentLongitude - startingLongitude) / 0.0000001;
         double x = (-1) * differenceLat * (0.00027365);
-        double y = (-1) * differenceLong * (0.00020216);
+        double y = (-1) * differenceLong * (0.00019400);
+/*         if ((y < 0.14 && y > -0.52 && x > -0.04 && x < 0.04) ||
+            (y < -0.52 && y > -0.6 && x > -0.33 && x < 0.34) ||
+            (y < -0.38 && y > -0.73 && x > -0.41 && x < 0.33)) {
+          _objects.first.offset = Offset(x, y);
+        } */
         _objects.first.offset = Offset(x, y);
 
         if (_currentPosition!.latitude <= destinationLatitude + 0.0000100 &&
@@ -70,6 +76,7 @@ class ZoomContainerState extends State<ZoomContainer> {
       });
     });
   }
+
   void _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -98,10 +105,6 @@ class ZoomContainerState extends State<ZoomContainer> {
       return Future.error(
           "Location permissions are permanently denied, we cannot request permissions.");
     }
-    Position currentPos = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.bestForNavigation);
-    setState(() {
-    });
   }
 /*
   @override
@@ -168,13 +171,18 @@ class ZoomContainerState extends State<ZoomContainer> {
                 });
               },
             ),
-              Container(
-                  child: widget.mapOrLocation?
-                      MaterialButton(onPressed: () {
-                            getCurrentLocation();
-                            changeImage();}, child: const Text("Get Current Location"),color: Colors.lightBlue,):
-                      Text("Campus Map"),
-              )
+            Container(
+              child: widget.mapOrLocation
+                  ? MaterialButton(
+                      onPressed: () {
+                        getCurrentLocation();
+                        changeImage();
+                      },
+                      child: const Text("Get Current Location"),
+                      color: Colors.lightBlue,
+                    )
+                  : Text("Campus Map"),
+            )
           ],
         ),
       ],
