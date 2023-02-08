@@ -54,7 +54,7 @@ class ZoomContainerState extends State<ZoomContainer> {
         double differenceLong =
             (currentLongitude - startingLongitude) / 0.0000001;
         double x = (-1) * differenceLat * (0.00027365);
-        double y = (-1) * differenceLong * (0.00019400);
+        double y = (-1) * differenceLong * (0.00019800);
 /*         if ((y < 0.14 && y > -0.52 && x > -0.04 && x < 0.04) ||
             (y < -0.52 && y > -0.6 && x > -0.33 && x < 0.34) ||
             (y < -0.38 && y > -0.73 && x > -0.41 && x < 0.33)) {
@@ -69,8 +69,8 @@ class ZoomContainerState extends State<ZoomContainer> {
             _currentPosition!.longitude >= destinationLongitude - 0.0000100 */
             ) {
           hasArrived = true;
-          dispose();
         }
+        print(hasArrived);
         print(
             "Lat: ${_currentPosition?.latitude},\nLong: ${_currentPosition?.longitude},\nOffsetDx:$x,\nOffsetDy:$y");
       });
@@ -106,12 +106,6 @@ class ZoomContainerState extends State<ZoomContainer> {
           "Location permissions are permanently denied, we cannot request permissions.");
     }
   }
-/*
-  @override
-  void dispose() {
-    _getCurrentLocation().cancel();
-    super.dispose();
-  }*/
 
   //Initializing zoom level, image provider and widget object
   @override
@@ -185,6 +179,10 @@ class ZoomContainerState extends State<ZoomContainer> {
             )
           ],
         ),
+        if (hasArrived)
+          const AlertDialog(
+              title: Text("You have arrived"),
+              content: Text("You have arrived"))
       ],
     );
   }

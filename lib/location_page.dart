@@ -1,9 +1,4 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/map_page.dart';
-import 'package:geolocator/geolocator.dart';
-import 'MapClasses/ZoomContainerState.dart';
 import 'MapClasses/MapObject.dart';
 import 'MapClasses/ZoomContainer.dart';
 
@@ -15,7 +10,6 @@ class LocationApp extends StatefulWidget {
 }
 
 class _LocationAppState extends State<LocationApp> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +28,7 @@ class _LocationAppState extends State<LocationApp> {
                 color: Colors.red,
               ),
               //offset: const Offset(-0.21, 0.31),
-              offset: Offset(0,0),
+              offset: Offset(0, 0),
               size: const Size(15, 15),
             ),
           ],
